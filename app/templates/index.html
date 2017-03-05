@@ -3,31 +3,36 @@
 
 {% block content %}
 
-    <div class="container">
+    <div class="container text-center">
+
         <!-- pages for the pagination -->
-        <div class=pager>
-        {% if pagination.has_prev %}
-            <a href="{{ "/index/page/%s"|format(pagination.page - 1)
-                }}">&laquo Previous</a>
-        {% endif %}
-
-        {%- for page in pagination.iter_pages() %}
-            {% if page %}
-                {% if page != pagination.page %}
-                    <a href="{{ "/index/page/%s"|format(page) }}">{{ page }}</a>
-                {% else %}
-                    <strong>{{ page }}</strong>
-                {% endif %}
+        <ul class="pagination pagination-centered">
+            {% if pagination.has_prev %}
+                <li><a href="{{ "/page/%s"|format(pagination.page - 1)
+                    }}">&laquo Previous</a></li>
             {% else %}
-                <span class=ellipsis>…</span>
+                <li class="disabled"><a>&laquo Previous</a></li>
             {% endif %}
-        {%- endfor %}
 
-        {% if pagination.has_next %}
-            <a href="{{ "/index/page/%s"|format(pagination.page + 1)
-                }}">Next &raquo;</a>
-        {% endif %}
-        </div>
+            {%- for page in pagination.iter_pages() %}
+                {% if page %}
+                    {% if page != pagination.page %}
+                    <li><a href="{{ "/page/%s"|format(page) }}">{{ page }}</a></li>
+                    {% else %}
+                        <li class="active"><a href="{{ "/page/%s"|format(page) }}">{{ page }}</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><span class=ellipsis>…</span></li>
+                {% endif %}
+            {%- endfor %}
+
+            {% if pagination.has_next %}
+                <li><a href="{{ "/page/%s"|format(pagination.page + 1)
+                    }}">Next &raquo;</a></li>
+            {% else %}
+                <li class="disabled"><a>Next &raquo;</a></li>
+            {% endif %}
+        </ul>
 
         <!-- table for the pagination -->
         <div class="table-responsive">

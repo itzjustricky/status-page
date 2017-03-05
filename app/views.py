@@ -13,26 +13,30 @@ from app import app
 
 import flask
 from flask import render_template
+# from flask import url_for
 # from flask import redirect
 
 # import custom modules in directory of app
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from pagination import Paginator
 
+pd.set_option('display.max_colwidth', -1)
+
 PER_PAGE = 20
 boston_data = datasets.load_boston()
 boston_data_df = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
 
 
-@app.route('/index/', defaults={'page': 1})
-@app.route('/index/page/<int:page>')
+@app.route('/', defaults={'page': 1})
+@app.route('/page/<int:page>')
 def show_users(page):
     # count = count_all_users()
     # users = get_users_for_page(page, PER_PAGE, count)
     count = boston_data_df.shape[0]
 
     pagination = Paginator(page, PER_PAGE, count)
-    if page < 1 or page > pagination.n_pages:
+    # if page < 1 or page > pagination.n_pages:
+    if page > pagination.n_pages:
         flask.abort(404)
 
     start_ind = (page - 1) * PER_PAGE
@@ -47,4 +51,4 @@ def show_users(page):
 
 @app.errorhandler(404)
 def not_found(error):
-    return render_template('404.html'), 404
+    return render_template('404.html')

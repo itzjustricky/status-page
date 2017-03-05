@@ -1,4 +1,6 @@
 """
+    Some HTML-based objects to be passed
+    into pandas DataFrame to be printed out
 
 
     @author: Ricky Chang

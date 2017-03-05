@@ -7,7 +7,7 @@
 """
 
 from math import ceil
-# from xml.etree import ElementTree as ET
+from xml.etree import ElementTree as ET
 
 
 class Paginator(object):
@@ -22,6 +22,7 @@ class Paginator(object):
 
     @property
     def n_pages(self):
+        """ The number of pages total for the Pagination """
         return int(ceil(self.total_count / float(self.per_page)))
 
     @property
@@ -34,6 +35,7 @@ class Paginator(object):
 
     def iter_pages(self, left_edge=2, left_current=2,
                    right_current=5, right_edge=2):
+        """ Generator to return pages that should be displayed """
         last = 0
         for num in range(1, self.n_pages + 1):
             if num <= left_edge or \
@@ -45,16 +47,3 @@ class Paginator(object):
                     yield None
                 yield num
                 last = num
-
-
-class StyledPaginator(Paginator):
-    """ A Paginator with styling """
-
-    def __init__(self, **base_kw):
-        super(StyledPaginator, self).__init__(**base_kw)
-        pass
-
-    @property
-    def page_links(self, set_page_active=True):
-        # container = ET.Element('ul', attrib={'class': "pager"})
-        pass
