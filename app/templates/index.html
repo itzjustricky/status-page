@@ -4,11 +4,12 @@
 {% block content %}
 
     <div class="container text-center">
+        <!-- buttons for control -->
 
-        <!-- pages for the pagination -->
+        <!-- pagination -->
         <ul class="pagination pagination-centered">
             {% if pagination.has_prev %}
-                <li><a href="{{ "/page/%s"|format(pagination.page - 1)
+                <li><a href="{{ url_for_other_page(pagination.page - 1)
                     }}">&laquo Previous</a></li>
             {% else %}
                 <li class="disabled"><a>&laquo Previous</a></li>
@@ -17,9 +18,9 @@
             {%- for page in pagination.iter_pages() %}
                 {% if page %}
                     {% if page != pagination.page %}
-                    <li><a href="{{ "/page/%s"|format(page) }}">{{ page }}</a></li>
+                    <li><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
                     {% else %}
-                        <li class="active"><a href="{{ "/page/%s"|format(page) }}">{{ page }}</a></li>
+                        <li class="active"><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
                     {% endif %}
                 {% else %}
                     <li><span class=ellipsis>…</span></li>
@@ -27,14 +28,14 @@
             {%- endfor %}
 
             {% if pagination.has_next %}
-                <li><a href="{{ "/page/%s"|format(pagination.page + 1)
+                <li><a href="{{ url_for_other_page(pagination.page + 1)
                     }}">Next &raquo;</a></li>
             {% else %}
                 <li class="disabled"><a>Next &raquo;</a></li>
             {% endif %}
         </ul>
 
-        <!-- table for the pagination -->
+        <!-- table of data -->
         <div class="table-responsive">
             {{ html_table|safe }}
         </div>

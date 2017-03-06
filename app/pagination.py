@@ -7,7 +7,7 @@
 """
 
 from math import ceil
-from xml.etree import ElementTree as ET
+# from xml.etree import ElementTree as ET
 
 
 class Paginator(object):
