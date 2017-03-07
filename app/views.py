@@ -6,6 +6,7 @@
 import sys
 import os.path
 
+import numpy as np
 import pandas as pd
 import sklearn.datasets as datasets
 
@@ -44,8 +45,28 @@ def create_tickbox(tickbox_group, name, text=None):
     return tickbox
 
 
+def create_status_circle():
+    # tickbox = HTMLPyObject('label', attrib={"class": "checkbox-inline"})
+    color_choices = ['red', 'yellow', 'green']
+    chosen_color = color_choices[np.random.randint(0, 3)]
+    status_circle = HTMLPyObject(
+        'div', attrib={'class': 'sphere {}'.format(chosen_color)})
+    text_obj = status_circle.sub_element('div', attrib={'class': 'text'})
+
+    if chosen_color == 'red':
+        text_obj.text = 'Fail'
+    if chosen_color == 'yellow':
+        text_obj.text = 'Running'
+    if chosen_color == 'green':
+        text_obj.text = 'Success'
+
+    return status_circle
+
+
+status_circles = [create_status_circle() for ind in range(boston_data_df.shape[0])]
 tickboxes = [create_tickbox('row_select', 'name_{}'.format(ind))
              for ind in range(boston_data_df.shape[0])]
+boston_data_df.insert(0, ' ', status_circles, allow_duplicates=True)
 boston_data_df.insert(0, ' ', tickboxes, allow_duplicates=True)
 
 

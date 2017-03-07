@@ -6,6 +6,9 @@
         <title>Test</title>
         {% endif %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        {% block head %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='sphere_classes.css') }}">
+        {% endblock %}
     </head>
     <body>
         {% block content %}{% endblock %}
