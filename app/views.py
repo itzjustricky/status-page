@@ -22,6 +22,7 @@ from flask import render_template
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from pagination import Paginator
 from html_objects import HTMLPyObject
+# from xml.etree import ElementTree as ET
 
 pd.set_option('display.max_colwidth', -1)
 
@@ -51,14 +52,15 @@ def create_status_circle():
     chosen_color = color_choices[np.random.randint(0, 3)]
     status_circle = HTMLPyObject(
         'div', attrib={'class': 'sphere {}'.format(chosen_color)})
-    text_obj = status_circle.sub_element('div', attrib={'class': 'text'})
+    # text_obj = status_circle.sub_element('div', attrib={'class': 'text'})
+    # bold_obj = ET.SubElement(text_obj, 'b')
 
-    if chosen_color == 'red':
-        text_obj.text = 'Fail'
-    if chosen_color == 'yellow':
-        text_obj.text = 'Running'
-    if chosen_color == 'green':
-        text_obj.text = 'Success'
+    # if chosen_color == 'red':
+    #     bold_obj.text = 'F'
+    # if chosen_color == 'yellow':
+    #     bold_obj.text = 'R'
+    # if chosen_color == 'green':
+    #     bold_obj.text = 'S'
 
     return status_circle
 
