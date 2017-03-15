@@ -27,7 +27,7 @@ from html_objects import HTMLPyObject
 pd.set_option('display.max_colwidth', -1)
 
 # Set an arbitrary dataframe
-PER_PAGE = 20
+PER_PAGE = 10
 boston_data = datasets.load_boston()
 # boston_data_df = pd.DataFrame(boston_data.data, columns=boston_data.feature_names)
 boston_data_df = pd.DataFrame(boston_data.data[:, :4], columns=boston_data.feature_names[:4])

@@ -10,8 +10,13 @@
 
         <div class="row" id="table-head">
             <!-- search bar -->
-            <div class="col-md-4">
-                <input type="text" placeholder="Search" />
+            <div class="col-sm-4 col-md-4 pull-right">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                    <div class="input-group-btn">
+                        <button class="btn btn-md" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -24,13 +29,13 @@
 
         <div class="row" id="table-pagination">
             <!-- pagination part -->
-            <div class="col-md-4">
+            <div class="col-md-4 pull-right">
                 <ul class="pagination pagination-centered">
                     {% if pagination.has_prev %}
                         <li><a href="{{ url_for_other_page(pagination.page - 1)
-                            }}">&laquo Previous</a></li>
+                            }}">&laquo</a></li>
                     {% else %}
-                        <li class="disabled"><a>&laquo Previous</a></li>
+                        <li class="disabled"><a>&laquo</a></li>
                     {% endif %}
                     {%- for page in pagination.iter_pages(left_edge=2, right_edge=1, left_current=0, right_current=1) %}
                         {% if page %}
@@ -45,9 +50,9 @@
                     {%- endfor %}
                     {% if pagination.has_next %}
                         <li><a href="{{ url_for_other_page(pagination.page + 1)
-                            }}">Next &raquo;</a></li>
+                            }}">&raquo;</a></li>
                     {% else %}
-                        <li class="disabled"><a>Next &raquo;</a></li>
+                        <li class="disabled"><a>&raquo;</a></li>
                     {% endif %}
                 </ul>
             </div>
