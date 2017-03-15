@@ -8,20 +8,23 @@
     <div class="container">
         <!-- buttons for control -->
 
-        <div class="row">
-
+        <div class="row" id="table-head">
             <!-- search bar -->
-            <div class="col-sm-8 col-md-8 col-lg-8">
-                <input type="text" class="search-query form-control" placeholder="Search" />
-                <span class="input-group-btn">
-                    <button class="btn btn-danger" type="button">
-                        <span class=" glyphicon glyphicon-search"></span>
-                    </button>
-                </span>
+            <div class="col-md-4">
+                <input type="text" placeholder="Search" />
             </div>
+        </div>
 
+        <div class="row" id="df-table">
+            <!-- table of data -->
+            <div class="table-responsive">
+                {{ html_table|safe }}
+            </div>
+        </div>
+
+        <div class="row" id="table-pagination">
             <!-- pagination part -->
-            <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="col-md-4">
                 <ul class="pagination pagination-centered">
                     {% if pagination.has_prev %}
                         <li><a href="{{ url_for_other_page(pagination.page - 1)
@@ -50,12 +53,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <!-- table of data -->
-            <div class="table-responsive">
-                {{ html_table|safe }}
-            </div>
-        </div>
     </div>
 
 {% endblock %}
