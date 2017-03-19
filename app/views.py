@@ -20,7 +20,7 @@ from flask import render_template
 
 # import custom modules in directory of app
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from pagination import Paginator
+from pagination import StaticPaginator
 from html_objects import HTMLPyObject
 # from xml.etree import ElementTree as ET
 
@@ -34,11 +34,11 @@ boston_data_df = pd.DataFrame(boston_data.data[:, :4], columns=boston_data.featu
 
 
 def create_tickbox(tickbox_group, name, text=None):
-    tickbox = HTMLPyObject('label', attrib={"class": "checkbox-inline"})
+    tickbox = HTMLPyObject('label', attrib={"class": "tickbox-inline"})
     input_obj = tickbox.sub_element(
         'input', attrib={
             "type": "checkbox",
-            "name": tickbox_group,
+            "class": tickbox_group,
             "value": name}
     )
     if text is not None:
@@ -66,10 +66,12 @@ def create_status_circle():
 
 
 status_circles = [create_status_circle() for ind in range(boston_data_df.shape[0])]
-tickboxes = [create_tickbox('row_select', 'name_{}'.format(ind))
+tickboxes = [create_tickbox('table-tickbox', 'name_{}'.format(ind))
              for ind in range(boston_data_df.shape[0])]
 boston_data_df.insert(0, ' ', status_circles, allow_duplicates=True)
-boston_data_df.insert(0, ' ', tickboxes, allow_duplicates=True)
+boston_data_df.insert(
+    0, '<input type="checkbox" name="select-all-tickbox" class="table-tickbox" onClick="toggleTickboxes(this)" />',
+    tickboxes, allow_duplicates=True)
 
 
 @app.route('/', defaults={'page': 1})
@@ -79,7 +81,7 @@ def show_users(page):
     # users = get_users_for_page(page, PER_PAGE, count)
     count = boston_data_df.shape[0]
 
-    pagination = Paginator(page, PER_PAGE, count)
+    pagination = StaticPaginator(page, PER_PAGE, count)
     # if page < 1 or page > pagination.n_pages:
     if page > pagination.n_pages and page > 1:
         flask.abort(404)

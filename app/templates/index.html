@@ -28,7 +28,12 @@
         </div>
 
         <div class="row" id="table-pagination">
-            <!-- pagination part -->
+            <div class="col-md-4 pull-left">
+                <h4 style="margin-top:30px; margin-bottom:30px">
+                    {{ pagination.info() }}
+                </h4>
+            </div>
+            <!-- pagination page links -->
             <div class="col-md-4 pull-right">
                 <ul class="pagination pagination-centered">
                     {% if pagination.has_prev %}
@@ -37,7 +42,7 @@
                     {% else %}
                         <li class="disabled"><a>&laquo</a></li>
                     {% endif %}
-                    {%- for page in pagination.iter_pages(left_edge=2, right_edge=1, left_current=0, right_current=1) %}
+                    {%- for page in pagination.iter_pages() %}
                         {% if page %}
                             {% if page != pagination.page %}
                             <li><a href="{{ url_for_other_page(page) }}">{{ page }}</a></li>
