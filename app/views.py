@@ -52,9 +52,9 @@ def create_status_circle():
     chosen_color = color_choices[np.random.randint(0, 3)]
     status_circle = HTMLPyObject(
         'div', attrib={'class': 'sphere {}'.format(chosen_color)})
+
     # text_obj = status_circle.sub_element('div', attrib={'class': 'text'})
     # bold_obj = ET.SubElement(text_obj, 'b')
-
     # if chosen_color == 'red':
     #     bold_obj.text = 'F'
     # if chosen_color == 'yellow':

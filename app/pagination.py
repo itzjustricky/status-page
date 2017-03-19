@@ -7,7 +7,6 @@
 """
 
 from math import ceil
-# from xml.etree import ElementTree as ET
 
 
 class Paginator(object):
@@ -64,23 +63,25 @@ class StaticPaginator(Paginator):
         fixed number of page links
     """
 
-    def iter_pages(self, pages_shown=6):
+    def iter_pages(self, n_tiles_shown=7):
         """ Generator to return pages that should be displayed
             preference would be given to left-current for pages
+        :param n_tiles_shown: refers to the # of values returned
+            by the generator (including None)
         """
 
-        if pages_shown < 6:
-            raise ValueError("There must be at least 6 pages shown "
+        if n_tiles_shown < 7:
+            raise ValueError("There must be at least 7 pages shown "
                              "for the StaticPaginator.")
 
-        if self.total_count < pages_shown:
+        if self.total_count <= n_tiles_shown:
             for num in range(1, self.n_pages + 1):
                 yield num
         else:
             last = 0
-            edge = pages_shown - 2
+            edge = n_tiles_shown - 2
             # current page is at beginning of total pages
-            if self.page <= edge:
+            if self.page < edge:
                 for num in range(1, self.n_pages + 1):
                     if num <= edge or \
                        num == self.n_pages:
@@ -90,7 +91,7 @@ class StaticPaginator(Paginator):
                         yield num
                         last = num
             # current page is at end of total pages
-            elif self.page > (self.n_pages - edge):
+            elif self.page > (self.n_pages - edge + 1):
                 for num in range(1, self.n_pages + 1):
                     if num == 1 or \
                        num > self.n_pages - edge:
@@ -101,8 +102,9 @@ class StaticPaginator(Paginator):
                         last = num
             # current page is somewhere in the middle
             else:
-                right_current = (pages_shown - 4) // 2
-                left_current = edge - right_current
+                tiles_available = n_tiles_shown - 5
+                right_current = tiles_available // 2
+                left_current = tiles_available - right_current
                 for num in range(1, self.n_pages + 1):
                     if num == 1 or \
                        (num >= self.page - left_current and
