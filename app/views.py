@@ -115,4 +115,14 @@ def url_for_other_page(page):
     return url_for(request.endpoint, **args)
 
 
+"""
+@app.route('/', methods=['POST'])
+def my_form_post():
+
+    text = request.form['text']
+    processed_text = text.upper()
+    return processed_text
+"""
+
+
 app.jinja_env.globals['url_for_other_page'] = url_for_other_page
